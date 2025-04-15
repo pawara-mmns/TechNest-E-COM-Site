@@ -19,7 +19,7 @@ export const AppContextProvider = (props) => {
 
     const [products, setProducts] = useState([])
     const [userData, setUserData] = useState(false)
-    const [isSeller, setIsSeller] = useState(true)
+    const [isSeller, setIsSeller] = useState(false)
     const [cartItems, setCartItems] = useState({})
 
     const fetchProductData = async () => {
@@ -29,8 +29,15 @@ export const AppContextProvider = (props) => {
     }
 
     const fetchUserData = async () => {
-        if (typeof window !== 'undefined') {
+        try {
+            
+            if (user.publicMetadata.role === 'seller') {
+                setIsSeller(true)
+            }
             setUserData(userDummyData)
+
+        } catch (error) {
+            
         }
     }
 
@@ -85,8 +92,10 @@ export const AppContextProvider = (props) => {
     }, [])
 
     useEffect(() => {
-        fetchUserData()
-    }, [])
+        if (user) {
+            fetchUserData()
+        }
+    }, [user])
 
     const value = {
         user,
