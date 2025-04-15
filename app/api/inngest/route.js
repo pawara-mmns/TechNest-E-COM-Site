@@ -1,3 +1,4 @@
+import User from "@/models/User"; //
 import { serve } from "inngest/next";
 import { inngest, syncUserCreation, syncUserDeletion, syncUserUpdation } from "@/config/inngest";
 
